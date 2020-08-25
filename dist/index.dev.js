@@ -63,23 +63,30 @@ function viewAllDepartments() {
   });
 }
 
-; // function viewAllRoles(){
-//     var query = "SELECT * FROM roles";
-//     connection.query(query, function(err, res){
-//         console.log("All Roles:");
-//         res.forEach(role => {
-//             console.log(`ID: {role.id} |Title: {role.title} |Salary: {role.salary}`)
-//         });
-//         promptAction();
-//     });
-// };
-// function viewAllEmployees(){
-//     var query = "SELECT * FROM employee";
-//     connection.query(query, function(err, res){
-//         console.log("All Employees:")
-//         res.forEach(employee => {
-//             console.log(`ID: {employee.id} | Name: {employee.name}`)
-//         });
-//         promptAction();
-//     });
-// };
+;
+
+function viewAllRoles() {
+  var query = "SELECT * FROM role";
+  connection.query(query, function (err, res) {
+    console.log("All Roles:");
+    res.forEach(function (role) {
+      console.log("ID: ".concat(role.id, " |Title: ").concat(role.title, " |Salary: ").concat(role.salary, " |Department ID: ").concat(role.department_id));
+    });
+    promptAction();
+  });
+}
+
+;
+
+function viewAllEmployees() {
+  var query = "SELECT * FROM employee";
+  connection.query(query, function (err, res) {
+    console.log("All Employees:");
+    res.forEach(function (employee) {
+      console.log("ID: {employee.id} | Name: {employee.name}");
+    });
+    promptAction();
+  });
+}
+
+;
