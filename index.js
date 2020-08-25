@@ -41,22 +41,22 @@ function promptAction(){
             "Quit/Exit"
         ]
     }).then(function(chosen) {
-        if (chosen === "view all departments"){
+        if (chosen.action === "view all departments"){
             viewAllDepartments();
         
-    } else if (chosen === "view all roles") {
+    } else if (chosen.action === "view all roles") {
         viewAllRoles();
-    } else if (chosen === "view all employees"){
+    } else if (chosen.action === "view all employees"){
         viewAllEmployees();
-    }else if (chosen === "add a department"){
+    }else if (chosen.action === "add a department"){
         addDepartment();
-    }else if (chosen === "add a role"){
+    }else if (chosen.action === "add a role"){
         addRole();
-    }else if (chosen === "add employee"){
+    }else if (chosen.action === "add employee"){
         addEmployee();
-    }else if (chosen === "Update role of employee"){
+    }else if (chosen.action === "Update role of employee"){
         updateEmployee();
-    }else if (chosen === "Quit/Exit"){
+    }else if (chosen.action === "Quit/Exit"){
         connection.end();
     }
  
@@ -68,7 +68,7 @@ function viewAllDepartments(){
     connection.query(query, function(err, res){
         console.log("All Departments:")
         res.forEach(department => {
-            console.log(`ID: {department.id} | Name: {department.name}`)
+            console.log(`ID: ${department.id} | Name: ${department.name}`)
         });
         promptAction();
     });
