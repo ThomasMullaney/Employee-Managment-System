@@ -90,7 +90,7 @@ function viewAllEmployees(){
     connection.query(query, function(err, res){
         console.log("All Employees:")
         res.forEach(employee => {
-            console.log(`ID: {employee.id} | Name: {employee.name}`)
+            console.log(`First Name: ${employee.first_name} | Last Name: ${employee.last_name} | Role Id: ${employee.role_id} | Manager Id: ${employee.manager_id}`);
         });
         promptAction();
     });

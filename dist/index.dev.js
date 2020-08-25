@@ -83,7 +83,7 @@ function viewAllEmployees() {
   connection.query(query, function (err, res) {
     console.log("All Employees:");
     res.forEach(function (employee) {
-      console.log("ID: {employee.id} | Name: {employee.name}");
+      console.log("First Name: ".concat(employee.first_name, " | Last Name: ").concat(employee.last_name, " | Role Id: ").concat(employee.role_id, " | Manager Id: ").concat(employee.manager_id));
     });
     promptAction();
   });
