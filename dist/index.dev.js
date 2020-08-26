@@ -42,7 +42,7 @@ function promptAction() {
       addRole();
     } else if (chosen.action === "add employee") {
       addEmployee();
-    } else if (chosen.action === "Update role of employee") {
+    } else if (chosen.action === "update role of employee") {
       updateEmployee();
     } else if (chosen.action === "remove an employee") {
       removeEmployee();
@@ -50,7 +50,8 @@ function promptAction() {
       connection.end();
     }
   });
-}
+} // VIEW FUNCTIONS FOR THE THREE TABLES
+
 
 function viewAllDepartments() {
   var query = "SELECT * FROM department";
@@ -83,7 +84,8 @@ function viewAllEmployees() {
     });
     promptAction();
   });
-}
+} // ADD FUNCTIONS FOR THE THREE TALBES
+
 
 function addDepartment() {
   inquirer.prompt({
@@ -125,8 +127,7 @@ function addRole() {
         });
         return choicesArray;
       }
-    }]) // create code to grab the corresponding ID
-    .then(function (answer) {
+    }]).then(function (answer) {
       var department = answer.name;
       connection.query("SELECT * FROM department WHERE ?", {
         name: answer.departmentChoice
@@ -193,7 +194,64 @@ function addEmployee() {
       });
     });
   });
-}
+} // UPDATE ROLE
+
+
+function updateEmployee() {
+  connection.query("SELECT * FROM employee", function (err, result) {
+    if (err) {
+      throw err;
+    }
+
+    inquirer.prompt([{
+      name: "employeeName",
+      type: "list",
+      message: "What employee's role are you changing?",
+      choices: function choices() {
+        var choicesArray = [];
+        result.forEach(function (result) {
+          choicesArray.push(result.last_name);
+        });
+        return choicesArray;
+      }
+    }]).then(function (answer) {
+      console.log(answer);
+      var name = answer.employeeName;
+      connection.query("SELECT * FROM role", function (err, res) {
+        inquirer.prompt([{
+          name: "role",
+          type: "list",
+          message: "what is the employee's new role?",
+          choices: function choices() {
+            var choicesArray = [];
+            res.forEach(function (res) {
+              choicesArray.push(res.title);
+            });
+            return choicesArray;
+          }
+        }]).then(function (rolesAnswer) {
+          var role = rolesAnswer.role;
+          console.log(rolesAnswer.role);
+          connection.query("SELECT * FROM role WHERE title = ?", [role], function (err, res) {
+            if (err) {
+              throw err;
+            }
+
+            var roleId = res[0].id;
+            var query = "UPDATE employee SET role_id ? WHERE last_name ?";
+            var values = [roleId, name];
+            console.log(values);
+            connection.query(query, values, function (err, res, fields) {
+              console.log("you have updated ".concat(name, "'s role to ").concat(role, "."));
+            });
+            viewAllEmployees();
+          });
+        });
+      });
+    });
+  });
+} // REMOVE FUNCTIONS FOR THE THREE TABLES
+
 
 function removeEmployee() {
   inquirer.prompt([{
@@ -205,16 +263,34 @@ function removeEmployee() {
     type: "input",
     message: "what is the last name of the employee you would like to remove?"
   }]).then(function (answer) {
-    connection.query("DELETE FROM employee WHERE first_name = ? and last_name = ?", [answer.firstName, answer.lastName], function (err) {
+    connnection.query("DELETE FROM employee WHERE first_name = ? and last_name = ?", [answer.firstName, answer.lastName], function (err) {
       if (err) {
         throw err;
       }
 
-      ;
       console.log("".concat(answer.firstName).concat(answer.lastName, " has been removed from the database."));
       viewAllEmployees();
     });
   });
-}
-
-function updateEmployee() {}
+} // function removeRole(){
+//   inquirer
+//   .prompt ([
+//     {
+//       name: "firstName",
+//       type: "input",
+//       message:"what is the first name of the employee you would like to remove?"
+//     },
+//     {
+//       name: "lastName",
+//       type: "input",
+//       message:"what is the last name of the employee you would like to remove?"
+//     }
+//   ]).then(function (answer){
+//     connnection.query("DELETE FROM employee WHERE first_name = ? and last_name = ?",
+//     [answer.firstName, answer.lastName],function(err){
+//       if (err){throw err};
+//       console.log(`${answer.firstName}${answer.lastName} has been removed from the database.`)
+//       viewAllEmployees();
+//     })
+//   })
+// }
