@@ -50,8 +50,6 @@ function promptAction() {
   });
 }
 
-;
-
 function viewAllDepartments() {
   var query = "SELECT * FROM department";
   connection.query(query, function (err, res) {
@@ -62,8 +60,6 @@ function viewAllDepartments() {
     promptAction();
   });
 }
-
-;
 
 function viewAllRoles() {
   var query = "SELECT * FROM role";
@@ -76,8 +72,6 @@ function viewAllRoles() {
   });
 }
 
-;
-
 function viewAllEmployees() {
   var query = "SELECT * FROM employee";
   connection.query(query, function (err, res) {
@@ -88,8 +82,6 @@ function viewAllEmployees() {
     promptAction();
   });
 }
-
-;
 
 function addDepartment() {
   inquirer.prompt({
@@ -105,28 +97,53 @@ function addDepartment() {
   });
 }
 
-; // function addRole(){
-//     inquirer
-//     .prompt ({
-//         name: "title",
-//         type: "input",
-//         message: "What is the title of the new role?",
-//     }, 
-//     {
-//         name:"salary",
-//         type:"input",
-//         message:"What is the salary for the new role?",
-//     },
-//     {
-//         name:"Department Name",
-//     })
-//     .then(function(userAnswer){
-//     var query = "INSERT INTO department (name) VALUES ?";
-//     connection.query(query, userAnswer.department, function (err, res){
-//         console.log(`Inserting new Department: ${answer.department}` )
-//     });
-//     viewAllDepartments();
-// });
-// };
-// function addEmployee(){
+function addRole() {
+  connection.query("SELECT * FROM department", function (err, res) {
+    if (err) {
+      throw err;
+    }
+
+    ;
+    inquirer.prompt([{
+      name: "roleTitle",
+      type: "input",
+      message: "What is the title of the new role?"
+    }, {
+      name: "roleSalary",
+      type: "input",
+      message: "What is the salary for the new role?"
+    }, {
+      name: "departmentChoice",
+      type: "list",
+      message: "What department is this role part of?",
+      // create function to update choices with any added departments
+      choices: function choices() {
+        var choicesArray = [];
+        res.forEach(function (res) {
+          choicesArray.push(res.name);
+        });
+        return choicesArray;
+      }
+    }]) // create code to grab the corresponding ID
+    .then(function (answer) {
+      var department = answer.name;
+      connection.query("SELECT * FROM department WHERE ?", {
+        name: answer.departmentChoice
+      }, function (err, res) {
+        if (err) {
+          throw err;
+        }
+
+        console.log(res[0].id);
+        connection.query("INSERT INTO role SET ?", {
+          title: answer.roleTitle,
+          salary: parseInt(answer.roleSalary),
+          department_id: parseInt(res[0].id)
+        });
+        console.log("\n Role has been added to database...\n");
+        viewAllRoles();
+      });
+    });
+  });
+} // function addEmployee(){
 // }
