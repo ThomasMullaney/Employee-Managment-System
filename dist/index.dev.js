@@ -198,7 +198,7 @@ function addEmployee() {
 
 
 function updateEmployee() {
-  connection.query("SELECT * FROM employee", function (err, result) {
+  connection.query("SELECT * FROM employee", function (err, res) {
     if (err) {
       throw err;
     }
@@ -209,8 +209,8 @@ function updateEmployee() {
       message: "What employee's role are you changing?",
       choices: function choices() {
         var choicesArray = [];
-        result.forEach(function (result) {
-          choicesArray.push(result.last_name);
+        res.forEach(function (res) {
+          choicesArray.push(res.last_name);
         });
         return choicesArray;
       }
@@ -238,7 +238,7 @@ function updateEmployee() {
             }
 
             var roleId = res[0].id;
-            var query = "UPDATE employee SET role_id ? WHERE last_name ?";
+            var query = "UPDATE employee SET role_id = ? WHERE last_name = ?";
             var values = [roleId, name];
             console.log(values);
             connection.query(query, values, function (err, res, fields) {
