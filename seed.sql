@@ -16,6 +16,6 @@ INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("Erin"
 INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("Tom", "Chalamee", 4, NULL);
 INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("Hojin", "M", 4, NULL);
 INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("Manoli", "Greek", 4, 2);
-INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("Kyle", "Andie", 3, 3);
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("Kyle", "Andie", 3, 3),
 INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("Ed", "Gibbons", 2, 4);
 

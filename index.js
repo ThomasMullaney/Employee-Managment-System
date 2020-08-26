@@ -95,3 +95,52 @@ function viewAllEmployees(){
         promptAction();
     });
 };
+
+
+// function addDepartment(){
+//     inquirer
+//     .prompt ({
+//         name: "department",
+//         type: "input",
+//         message: "What is the new department's name?",
+//     })
+//     .then(function(userAnswer){
+    
+//     var query = "INSERT INTO department (name) VALUES ?";
+//     connection.query(query, userAnswer.department, function (err, res){
+//         console.log(`Inserting new Department: ${answer.department}` )
+//     });
+//     viewAllDepartments();
+// });
+// };
+
+// function addRole(){
+//     inquirer
+//     .prompt ({
+//         name: "title",
+//         type: "input",
+//         message: "What is the title of the new role?",
+//     }, 
+//     {
+//         name:"salary",
+//         type:"input",
+//         message:"What is the salary for the new role?",
+//     },
+//     {
+//         name:"Department Name",
+//     })
+//     .then(function(userAnswer){
+    
+//     var query = "INSERT INTO department (name) VALUES ?";
+//     connection.query(query, userAnswer.department, function (err, res){
+//         console.log(`Inserting new Department: ${answer.department}` )
+//     });
+//     viewAllDepartments();
+// });
+// };
+
+
+
+// function addEmployee(){
+
+// }
