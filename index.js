@@ -308,7 +308,7 @@ function removeEmployee() {
       },
     ])
     .then(function (answer) {
-      connnection.query(
+      connection.query(
         "DELETE FROM employee WHERE first_name = ? and last_name = ?",
         [answer.firstName, answer.lastName],
         function (err) {

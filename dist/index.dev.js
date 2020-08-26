@@ -263,7 +263,7 @@ function removeEmployee() {
     type: "input",
     message: "what is the last name of the employee you would like to remove?"
   }]).then(function (answer) {
-    connnection.query("DELETE FROM employee WHERE first_name = ? and last_name = ?", [answer.firstName, answer.lastName], function (err) {
+    connection.query("DELETE FROM employee WHERE first_name = ? and last_name = ?", [answer.firstName, answer.lastName], function (err) {
       if (err) {
         throw err;
       }
