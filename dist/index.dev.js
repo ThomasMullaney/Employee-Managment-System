@@ -28,7 +28,7 @@ function promptAction() {
     name: "action",
     type: "list",
     message: "What action would you like to perfrom?",
-    choices: ["view all departments", "view all roles", "view all employees", "add a department", "add a role", "add employee", "update role of employee", "Quit/Exit"]
+    choices: ["view all departments", "view all roles", "view all employees", "add a department", "add a role", "add employee", "update role of employee", "remove an employee", "Quit/Exit"]
   }).then(function (chosen) {
     if (chosen.action === "view all departments") {
       viewAllDepartments();
@@ -44,6 +44,8 @@ function promptAction() {
       addEmployee();
     } else if (chosen.action === "Update role of employee") {
       updateEmployee();
+    } else if (chosen.action === "remove an employee") {
+      removeEmployee();
     } else if (chosen.action === "Quit/Exit") {
       connection.end();
     }
@@ -103,7 +105,6 @@ function addRole() {
       throw err;
     }
 
-    ;
     inquirer.prompt([{
       name: "roleTitle",
       type: "input",
@@ -145,5 +146,75 @@ function addRole() {
       });
     });
   });
-} // function addEmployee(){
-// }
+}
+
+function addEmployee() {
+  connection.query("SELECT * FROM role", function (err, res) {
+    if (err) {
+      throw err;
+    }
+
+    inquirer.prompt([{
+      name: "firstName",
+      type: "input",
+      message: "What is employee's first name?"
+    }, {
+      name: "lastName",
+      type: "input",
+      message: "What is the last name of the new employee?"
+    }, {
+      name: "roleChoice",
+      type: "list",
+      message: "What is the role of the new employee?",
+      // create function to update choices with any added departments
+      choices: function choices() {
+        var choicesArray = [];
+        res.forEach(function (res) {
+          choicesArray.push(res.title);
+        });
+        return choicesArray;
+      }
+    }]).then(function (answer) {
+      connection.query("SELECT * FROM role WHERE (?)", {
+        title: answer.roleChoice
+      }, function (err, res) {
+        if (err) {
+          throw err;
+        }
+
+        console.log(res[0].id);
+        connection.query("INSERT INTO employee SET ?", {
+          first_name: answer.firstName,
+          last_name: answer.lastName,
+          role_id: res[0].id
+        });
+        console.log("\n Employee has been added to database...\n");
+        viewAllEmployees();
+      });
+    });
+  });
+}
+
+function removeEmployee() {
+  inquirer.prompt([{
+    name: "firstName",
+    type: "input",
+    message: "what is the first name of the employee you would like to remove?"
+  }, {
+    name: "lastName",
+    type: "input",
+    message: "what is the last name of the employee you would like to remove?"
+  }]).then(function (answer) {
+    connection.query("DELETE FROM employee WHERE first_name = ? and last_name = ?", [answer.firstName, answer.lastName], function (err) {
+      if (err) {
+        throw err;
+      }
+
+      ;
+      console.log("".concat(answer.firstName).concat(answer.lastName, " has been removed from the database."));
+      viewAllEmployees();
+    });
+  });
+}
+
+function updateEmployee() {}
