@@ -28,7 +28,7 @@ function promptAction() {
     name: "action",
     type: "list",
     message: "What action would you like to perfrom?",
-    choices: ["view all departments", "view all roles", "view all employees", "add a department", "add a role", "add employee", "pdate role of employee", "Quit/Exit"]
+    choices: ["view all departments", "view all roles", "view all employees", "add a department", "add a role", "add employee", "update role of employee", "Quit/Exit"]
   }).then(function (chosen) {
     if (chosen.action === "view all departments") {
       viewAllDepartments();
@@ -89,22 +89,23 @@ function viewAllEmployees() {
   });
 }
 
-; // function addDepartment(){
-//     inquirer
-//     .prompt ({
-//         name: "department",
-//         type: "input",
-//         message: "What is the new department's name?",
-//     })
-//     .then(function(userAnswer){
-//     var query = "INSERT INTO department (name) VALUES ?";
-//     connection.query(query, userAnswer.department, function (err, res){
-//         console.log(`Inserting new Department: ${answer.department}` )
-//     });
-//     viewAllDepartments();
-// });
-// };
-// function addRole(){
+;
+
+function addDepartment() {
+  inquirer.prompt({
+    name: "department",
+    type: "input",
+    message: "What is the new department's name?"
+  }).then(function (answer) {
+    var query = "INSERT INTO department (name) VALUES (?)";
+    connection.query(query, answer.department, function (err, res) {
+      console.log("Inserting new Department: ".concat(answer.department));
+    });
+    viewAllDepartments();
+  });
+}
+
+; // function addRole(){
 //     inquirer
 //     .prompt ({
 //         name: "title",

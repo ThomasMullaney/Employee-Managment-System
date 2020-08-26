@@ -37,7 +37,7 @@ function promptAction(){
             "add a department",
             "add a role",
             "add employee",
-            "pdate role of employee",
+            "update role of employee",
             "Quit/Exit"
         ]
     }).then(function(chosen) {
@@ -68,7 +68,7 @@ function viewAllDepartments(){
     connection.query(query, function(err, res){
         console.log("All Departments:")
         res.forEach(department => {
-            console.log(`ID: ${department.id} | Name: ${department.name}`)
+            console.log(`ID: ${department.id} | Name: ${department.name}`);
         });
         promptAction();
     });
@@ -97,22 +97,21 @@ function viewAllEmployees(){
 };
 
 
-// function addDepartment(){
-//     inquirer
-//     .prompt ({
-//         name: "department",
-//         type: "input",
-//         message: "What is the new department's name?",
-//     })
-//     .then(function(userAnswer){
-    
-//     var query = "INSERT INTO department (name) VALUES ?";
-//     connection.query(query, userAnswer.department, function (err, res){
-//         console.log(`Inserting new Department: ${answer.department}` )
-//     });
-//     viewAllDepartments();
-// });
-// };
+function addDepartment(){
+    inquirer
+    .prompt ({
+        name: "department",
+        type: "input",
+        message: "What is the new department's name?",
+    })
+    .then(function(answer){
+    var query = "INSERT INTO department (name) VALUES (?)";
+    connection.query(query, answer.department, function (err, res){
+        console.log(`Inserting new Department: ${answer.department}`)
+    });
+    viewAllDepartments();
+});
+};
 
 // function addRole(){
 //     inquirer
