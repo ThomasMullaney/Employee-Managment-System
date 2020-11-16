@@ -17,7 +17,7 @@ This is a content management system command-line application</p>
       Github Repository
     </a>
 <span> | </span>
-<a href="https://drive.google.com/file/d/1F3_3-eOJbXPReM2wD1IaTNvP8CweF3Uc/view">
+<a href="img/Untitled_Nov 16 2020 3_04PM.webm">
       Video Walkthrough
     </a>
   </h4>
