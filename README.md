@@ -17,7 +17,7 @@ This is a content management system command-line application</p>
       Github Repository
     </a>
 <span> | </span>
-<a href="img/Untitled_Nov 16 2020 3_04PM.webm">
+<a href="https://drive.google.com/file/d/11bcIyuj7m9R7bc0B1D9lDLumR-0vjR6z/view">
       Video Walkthrough
     </a>
   </h4>
@@ -42,6 +42,14 @@ This is a content management system command-line application</p>
 
 ## Usage:
 ### Allows a user to manage company employees, department branches, and roles. Users can view,  add, update, and delete employees, departments, and roles. 
+
+## Technologies:
+<ul>
+<li>Node.js, express.js, inquirer</li>
+<li>MySQL</li>
+<li>Javascript, JQuery, JSON</li>
+<li>Github</li>
+</ul>
 
 ## License:
 ### [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
