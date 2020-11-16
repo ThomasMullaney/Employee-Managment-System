@@ -23,7 +23,6 @@ This is a content management system command-line application</p>
   </h4>
 </div>
 
-![Screenshot of application demo](assets/demo.png)
 
 
 ## Description:
