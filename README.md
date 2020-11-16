@@ -3,9 +3,9 @@
 <div>
     <h4>
     </a>
-    <a href="https://github.com/ThomasMullaney/Employee-Management-System/stargazers"><img src="https://img.shields.io/github/stars/ThomasMullaney/Employee-Management-System.svg?style=plasticr"/></a>
-    <a href="https://github.com/ThomasMullaney/Employee-Management-System/commits/master"><img src="https://img.shields.io/github/last-commit/ThomasMullaney/Employee-Management-System.svg?style=plasticr"/></a>
-        <a href="https://github.com/ThomasMullaney/Employee-Management-System/commits/master"><img src="https://img.shields.io/github/commit-activity/y/ThomasMullaney/Employee-Management-System.svg?style=plasticr"/></a>
+    <a href="https://github.com/ThomasMullaney/Employee-Managment-System/stargazers"><img src="https://img.shields.io/github/stars/ThomasMullaney/Employee-Managment-System.svg?style=plasticr"/></a>
+    <a href="https://github.com/ThomasMullaney/Employee-Managment-System/commits/master"><img src="https://img.shields.io/github/last-commit/ThomasMullaney/Employee-Managment-System.svg?style=plasticr"/></a>
+        <a href="https://github.com/ThomasMullaney/Employee-Managment-System/commits/master"><img src="https://img.shields.io/github/commit-activity/y/ThomasMullaney/Employee-Managment-System.svg?style=plasticr"/></a>
     </h4>
 </div>
 
