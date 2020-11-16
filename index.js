@@ -207,21 +207,60 @@ function addEmployee() {
         },
       ])
       .then(function (answer) {
+        const role = answer.roleChoice;
         connection.query(
-          "SELECT * FROM role WHERE (?)",
-          { title: answer.roleChoice },
+          "SELECT * FROM role",
           function (err, res) {
             if (err) {
               throw err;
             }
-            console.log(res[0].id);
-            connection.query("INSERT INTO employee SET ?", {
-              first_name: answer.firstName,
-              last_name: answer.lastName,
-              role_id: res[0].id,
-            });
-            console.log("\n Employee has been added to database...\n");
-            viewAllEmployees();
+            let filteredRole = res.filter(function (res){
+              return res.title == role;
+            })
+            let roleId =filteredRole[0].id;
+            connection.query("SELECT * FROM employee", function(err, res){
+              inquirer
+              .prompt ([
+                {
+                  name: "manager",
+                  type: "list",
+                  message: "Who is your manager?",
+                  choices:  function () {
+                    var choicesArray = [];
+                    res.forEach((res) => {
+                      choicesArray.push(res.last_name);
+                    });
+                    return choicesArray;
+                  },
+                }
+              ]).then(function(managerAnswer){
+                const manager = managerAnswer.manager;
+                connection.query("SELECT * FROM employee", function(err, res){
+                  if (err){throw err};
+                  let filteredManager = res.filter(function(res){
+                    return res.last_name == manager;
+                  })
+                  let managerId = filteredManager[0].id;
+                  console.log(managerAnswer);
+                  let query = "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)";
+                  let values = [answer.firstName, answer.lastName, roleId, managerId]
+                  console.log(values);
+                  connection.query(query, values, function(err,res,fields){
+                    console.log(`${(values[0])} has been added to employees`)
+                  })
+                  viewAllEmployees();
+                })
+              })
+            })
+
+            // // console.log(res[0].id);
+            // connection.query("INSERT INTO employee SET ?", {
+            //   first_name: answer.firstName,
+            //   last_name: answer.lastName,
+            //   role_id: res[0].id,
+            // });
+            // console.log("\n Employee has been added to database...\n");
+            // viewAllEmployees();
           }
         );
       });
